@@ -25,7 +25,7 @@ jobs:
         env:
           AUTOMATION_ENABLED: ${{ vars.AUTOMATION_ENABLED }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
-          GITHUB_AUTOMATION_TOKEN: ${{ secrets.GITHUB_AUTOMATION_TOKEN }}
+          GH_AUTOMATION_TOKEN: ${{ secrets.GH_AUTOMATION_TOKEN }}
           CODING_PROVIDER: ${{ vars.CODING_PROVIDER }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
