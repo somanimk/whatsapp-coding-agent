@@ -35,7 +35,7 @@ Create a fine-grained GitHub personal access token for `somanimk` with access to
 - `Mayank-Portfolio-Site`: Contents read/write, Pull requests read/write, Deployments read, Checks read, Commit statuses read.
 - `whatsapp-coding-agent`: Actions read/write for workflow dispatch.
 
-GitHub may apply permissions at the token level across the selected repositories. Store the token as `GITHUB_AUTOMATION_TOKEN` in Vercel and the worker's GitHub Actions secrets. Never commit it. The publisher is fixed to `somanimk/Mayank-Portfolio-Site` and only creates refs under `whatsapp/task-<task-id>`. It discovers the target default branch (currently master) and never pushes to main/master/default branches. Merge is a separate API operation gated by explicit approval.
+GitHub may apply permissions at the token level across the selected repositories. Store the token as `GH_AUTOMATION_TOKEN` in Vercel and the worker's GitHub Actions secrets. Never commit it. The publisher is fixed to `somanimk/Mayank-Portfolio-Site` and only creates refs under `whatsapp/task-<task-id>`. It discovers the target default branch (currently master) and never pushes to main/master/default branches. Merge is a separate API operation gated by explicit approval.
 
 Protect the portfolio's default branch in GitHub and require its appropriate checks. Ensure squash merges are enabled. Vercel must remain connected to the portfolio repository and create preview deployments for task branches/PRs. Preview lookup uses GitHub deployment records for the exact commit, with Preview environment and a successful HTTPS `.vercel.app` URL. If your Vercel integration does not publish those records, the task stays awaiting_preview; inspect the GitHub deployment integration before approving.
 
@@ -47,7 +47,7 @@ Add these variables to Vercel Production, in addition to the five working WhatsA
 AUTOMATION_ENABLED=false
 WHATSAPP_ALLOWED_SENDERS=YOUR_PERSONAL_NUMBER_IN_INTERNATIONAL_DIGITS
 DATABASE_URL=YOUR_PRIVATE_DATABASE_URL
-GITHUB_AUTOMATION_TOKEN=YOUR_PRIVATE_GITHUB_TOKEN
+GH_AUTOMATION_TOKEN=YOUR_PRIVATE_GITHUB_TOKEN
 GITHUB_WORKER_REPO=somanimk/whatsapp-coding-agent
 GITHUB_WORKER_REF=phase1-webhook
 ```
@@ -60,7 +60,7 @@ In `whatsapp-coding-agent` → Settings → Secrets and variables → Actions, a
 
 ```text
 DATABASE_URL
-GITHUB_AUTOMATION_TOKEN
+GH_AUTOMATION_TOKEN
 OPENAI_API_KEY
 WHATSAPP_ACCESS_TOKEN
 WHATSAPP_PHONE_NUMBER_ID

@@ -12,7 +12,7 @@ import { mergeApproved, publish, previewFor } from "../lib/automation/publish";
 import type { CodingTask } from "../types/automation";
 import type { transaction } from "../lib/automation/store";
 process.env.WHATSAPP_ALLOWED_SENDERS = "919876543210";
-process.env.GITHUB_AUTOMATION_TOKEN = "test-only-token";
+process.env.GH_AUTOMATION_TOKEN = "test-only-token";
 const sender = "919876543210";
 function readyTask(): CodingTask {
   return { id: "0123456789abcdef", sender, instruction: "Fix hero", status: "ready", branch: "whatsapp/task-0123456789abcdef", base_branch: "master", base_sha: "a".repeat(40), head_sha: "b".repeat(40), pr_number: 1, pr_url: "https://github.com/example/pr/1", preview_url: "https://preview.vercel.app", summary: "Fixed hero", approved_sha: null };
