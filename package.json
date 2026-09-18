@@ -7,21 +7,27 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint .",
-    "test": "node --conditions=react-server --import tsx --test tests/*.test.ts"
+    "test": "node --conditions=react-server --import tsx --test tests/*.test.ts",
+    "worker": "node --conditions=react-server --import tsx scripts/worker.ts",
+    "db:migrate": "node --conditions=react-server --import tsx scripts/migrate.ts"
   },
   "dependencies": {
     "next": "^16.3.5",
+    "pg": "^8.23.0",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "server-only": "^0.0.1"
   },
   "devDependencies": {
+    "@electric-sql/pglite": "^0.5.8",
     "@types/node": "^22",
+    "@types/pg": "^8.23.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "^16.3.5",
     "tsx": "^4",
     "typescript": "^5"
-  }
+  },
+  "type": "module"
 }

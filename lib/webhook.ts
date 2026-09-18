@@ -1,4 +1,7 @@
 import "server-only";
+import { enabled } from "./automation/config";
+import { acceptMessages } from "./automation/inbox";
+import { dispatchWorker } from "./automation/github";
 import { getAppSecret, getVerifyToken, getWhatsAppConfig } from "./config";
 import { parseTextMessages, replyToTask, verifySignature } from "./whatsapp";
 
@@ -38,7 +41,16 @@ export function createWebhookHandlers(schedule: (work: () => Promise<void>) => v
       return Response.json({ error: "Invalid JSON" }, { status: 400 });
     }
     const messages = parseTextMessages(payload, phoneNumberId);
-    if (messages.length) {
+    if (enabled() && messages.length) {
+      let accepted = false;
+      try { accepted = await acceptMessages(messages); } catch {
+        console.error("Automation inbox unavailable; inbound delivery not acknowledged");
+        return Response.json({ error: "Task storage unavailable" }, { status: 503 });
+      }
+      if (accepted) schedule(async () => {
+        try { await dispatchWorker(); } catch { console.error("Worker dispatch failed; scheduled worker will recover queued tasks"); }
+      });
+    } else if (messages.length) {
       // Vercel keeps this work alive after the webhook acknowledgement is returned.
       schedule(async () => {
         for (const message of messages) {
