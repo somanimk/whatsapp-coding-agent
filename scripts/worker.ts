@@ -1,6 +1,6 @@
 import { rm } from "node:fs/promises";
 import { database, notify } from "../lib/automation/store";
-import { OpenAIFileAgent } from "../lib/automation/agent";
+import { createCodingAgent } from "../lib/automation/agent";
 import { createWorkspace, sourceFiles, applyEdits, validateWorkspace } from "../lib/automation/workspace";
 import { baseSnapshot, publish, previewFor, mergeApproved, PendingMergeError } from "../lib/automation/publish";
 import { replyToTask, sendTextMessage } from "../lib/whatsapp";
@@ -20,7 +20,7 @@ async function processTask(task: CodingTask) {
       const base = await baseSnapshot();
       const root = await createWorkspace(base.sha);
       try {
-        const result = await new OpenAIFileAgent().propose(task.instruction, await sourceFiles(root));
+        const result = await createCodingAgent().propose(task.instruction, await sourceFiles(root));
         await applyEdits(root, result.files);
         await validateWorkspace(root);
         const pr = await publish(task, base, result);

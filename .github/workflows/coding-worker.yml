@@ -26,6 +26,9 @@ jobs:
           AUTOMATION_ENABLED: ${{ vars.AUTOMATION_ENABLED }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           GITHUB_AUTOMATION_TOKEN: ${{ secrets.GITHUB_AUTOMATION_TOKEN }}
+          CODING_PROVIDER: ${{ vars.CODING_PROVIDER }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           OPENAI_MODEL: ${{ vars.OPENAI_MODEL }}
           WHATSAPP_ACCESS_TOKEN: ${{ secrets.WHATSAPP_ACCESS_TOKEN }}

@@ -102,3 +102,17 @@ The workflow must be reviewed and merged into the service's default branch befor
 - The worker never enables GitHub auto-merge. Every merge requires the stored explicit approval for that task/head. GitHub branch protection should be your additional server-side enforcement.
 
 References: [OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs), [GitHub PR merge API](https://docs.github.com/en/rest/pulls/pulls#merge-a-pull-request), [GitHub deployments](https://docs.github.com/en/rest/deployments/deployments).
+
+## Use Gemini instead of OpenAI
+
+In GitHub Settings → Secrets and variables → Actions, add repository secret
+`GEMINI_API_KEY` and repository variables `CODING_PROVIDER=gemini` and
+`GEMINI_MODEL=<your available model ID supporting structured outputs>`.
+OpenAI credentials are not required when selecting Gemini. No Gemini key is
+needed in Vercel: only the trusted GitHub worker calls the model.
+Keep AUTOMATION_ENABLED=false in both places until all setup is complete.
+Deploy the updated service workflow before running a task. Free-tier quotas
+can limit requests; model availability and free eligibility depend on the account.
+The adapter rejects blocked or truncated responses and validates every edit
+using the same path restrictions as OpenAI. It never falls back to a paid provider.
+Reference: https://ai.google.dev/api/generate-content
