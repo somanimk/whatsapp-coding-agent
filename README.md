@@ -1,6 +1,6 @@
 # whatsapp-coding-agent — Phase 1
 
-A standalone Next.js TypeScript App Router service for Meta WhatsApp Cloud API, deployed to Vercel. This phase only receives text instructions and replies `Received task: <their message>`. No AI agent, GitHub integration, branches, commits, pull requests, approvals, or merge operations exist here.
+A standalone Next.js TypeScript App Router service for Meta WhatsApp Cloud API, deployed to Vercel. This phase only receives text instructions and replies `Received task: <their message>`. The default echo mode does not run coding/GitHub operations. Optional automation is implemented separately and disabled until configured.
 
 ## Architecture and files
 
@@ -94,4 +94,8 @@ The exact domain is determined by Vercel; no deployment has been created by this
 
 Webhook verification succeeds, a real incoming text is logged, the expected reply arrives on your phone, unsupported/status events return 200 without replies, and no secret appears in browser assets. Lint/build and mocked tests verify code locally; the real Meta/Vercel acceptance check needs your account configuration and is not yet completed.
 
-Future phases must keep every coding task on its own branch, never push directly to main/master, open a PR with a Vercel preview, and merge only after authenticated explicit `APPROVE <task-id>`. Those features are deliberately not implemented in Phase 1.
+Future phases must keep every coding task on its own branch, never push directly to main/master, open a PR with a Vercel preview, and merge only after authenticated explicit `APPROVE <task-id>`. These features are available through the optional disabled automation module; configure and review them separately after Phase 1.
+
+## Optional coding automation
+
+The next phase is implemented but disabled by default. See [AUTOMATION_SETUP.md](AUTOMATION_SETUP.md) for PostgreSQL, allowed sender, GitHub Actions, OpenAI API, preview discovery, and exact-commit approval setup. Keep `AUTOMATION_ENABLED=false` to retain the working Phase 1 echo behavior until configuration and review are complete.
